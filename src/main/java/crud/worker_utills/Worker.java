@@ -1,4 +1,4 @@
-package my_first_crud.worker_utills;
+package crud.worker_utills;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,6 +12,7 @@ public class Worker {
     private String mobileNumber;
     private String id;
 
+    public static final String FIELD_NAMES = "Name        Surname     Number            Position    id";
     private static final String defaultValue = "Unspecified";
     private static final Set<String> passwords = new HashSet<>();
     @Override
@@ -32,8 +33,8 @@ public class Worker {
         worker.name = line.substring(0, 12).trim();
         worker.surname = line.substring(12, 24).trim();
         worker.mobileNumber = line.substring(24, 42).trim();
-        worker.setPosition(line.substring(42, 51).trim());
-        worker.id = line.substring(51, 59);
+        worker.setPosition(line.substring(42, 54).trim());
+        worker.id = line.substring(54, 62);
         return worker;
     }
 
@@ -42,7 +43,7 @@ public class Worker {
         return name + " ".repeat(12 - name.length()) +
                 surname + " ".repeat(12 - surname.length()) +
                 mobileNumber + " ".repeat(18 - mobileNumber.length()) +
-                position + " ".repeat(9 - position.toString().length()) + this.getId();
+                position + " ".repeat(12 - position.toString().length()) + this.getId();
     }
 
     public void setName(String name) {
@@ -53,7 +54,8 @@ public class Worker {
             System.out.println("This name is incorrect");
             this.name = defaultValue;
         } else {
-            this.name = name;
+            String firstChar = name.substring(0, 1).toUpperCase();
+            this.name = firstChar + name.substring(1).toLowerCase();
         }
     }
 
@@ -65,16 +67,17 @@ public class Worker {
             System.out.println("This surname is incorrect");
             this.surname = defaultValue;
         } else {
-            this.surname = surname;
+            String firstChar = surname.substring(0,1).toUpperCase();
+            this.surname = firstChar + surname.substring(1).toLowerCase();
         }
     }
 
     public void setPosition(String position) {
         switch (position.toLowerCase()) {
-            case "trainee" -> setPosition(Position.TRAINEE);
-            case "junior" -> setPosition(Position.JUNIOR);
-            case "middle" -> setPosition(Position.MIDDLE);
-            case "senior" -> setPosition(Position.SENIOR);
+            case "trainee", "t"-> setPosition(Position.TRAINEE);
+            case "junior", "j", "jun"-> setPosition(Position.JUNIOR);
+            case "middle", "m", "mid"-> setPosition(Position.MIDDLE);
+            case "senior", "s", "sen"-> setPosition(Position.SENIOR);
             default -> setPosition(Position.NS);
         }
     }

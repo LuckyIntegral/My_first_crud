@@ -1,4 +1,4 @@
-package my_first_crud.worker_utills;
+package crud.worker_utills;
 
 public enum Position {
     TRAINEE, JUNIOR, MIDDLE, SENIOR, NS;

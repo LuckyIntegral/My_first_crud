@@ -1,4 +1,4 @@
-package my_first_crud;
+package crud;
 
 import java.io.IOException;
 

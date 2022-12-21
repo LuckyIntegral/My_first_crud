@@ -1,7 +1,7 @@
-package my_first_crud;
+package crud;
 
-import my_first_crud.worker_utills.Worker;
-import my_first_crud.worker_utills.WorkerBase;
+import crud.worker_utills.Worker;
+import crud.worker_utills.WorkerBase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class WorkersInterface {
 
-    private static final String filePath = "Your_file_path";
+    private static final String filePath = "Your_file_path.txt";
     public void start() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Choose your option");
@@ -87,12 +87,14 @@ public class WorkersInterface {
         if (worker == null) {
             System.out.println("This id doesn't exist");
         } else {
+            System.out.println(Worker.FIELD_NAMES);
             System.out.println(worker);
         }
     }
 
     private void findAllWorkers() {
         System.out.println("All workers:");
+        System.out.println(Worker.FIELD_NAMES);
         for (Worker worker: WorkerBase.getWorkers()) {
             System.out.println(worker);
         }
@@ -109,6 +111,7 @@ public class WorkersInterface {
         System.out.println("Please enter the phone number");
         worker.setMobileNumber(reader.readLine());
         System.out.println("\nNew worker has been added:");
+        System.out.println(Worker.FIELD_NAMES);
         System.out.println(worker);
         WorkerBase.addWorker(worker);
     }

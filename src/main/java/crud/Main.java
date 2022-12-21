@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        WorkersInterface workersInterface = new WorkersInterface();
-        workersInterface.start();
+        UserInterface userInterface = new UserInterface();
+        userInterface.start();
     }
 }

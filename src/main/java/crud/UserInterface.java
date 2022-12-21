@@ -1,5 +1,7 @@
 package crud;
 
+import crud.factory_utills.Factory;
+import crud.factory_utills.FactoryBase;
 import crud.worker_utills.Worker;
 import crud.worker_utills.WorkerBase;
 
@@ -7,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class WorkersInterface {
+public class UserInterface {
 
     private static final String filePath = "Your_file_path.txt";
     public void start() throws IOException {
@@ -28,9 +30,69 @@ public class WorkersInterface {
             case "3" -> findAllWorkers();
             case "4" -> upgradeWorker(reader);
             case "5" -> removeWorker(reader);
-            case "6" -> exit();
+            case "6" -> createFactory(reader);
+            case "7" -> findFactory(reader);
+            case "8" -> findAllFactories();
+            case "9" -> upgradeFactory(reader);
+            case "10" -> removeFactory(reader);
+            case "11" -> exit();
         }
         options();
+    }
+
+    private void createFactory(BufferedReader reader) throws IOException {
+        Factory factory = new Factory();
+        System.out.println("Please enter the name");
+        factory.setName(reader.readLine().trim());
+        System.out.println("Please enter the country of factory");
+        factory.setCountry(reader.readLine().trim());
+        System.out.println(Factory.FIELDS_NAMES);
+        System.out.println(factory);
+        FactoryBase.addFactory(factory);
+    }
+
+    private void findFactory(BufferedReader reader) throws IOException {
+        System.out.println("Please enter the id of factory");
+        Factory factory = FactoryBase.getFactory(reader.readLine());
+        if (factory == null) {
+            System.out.println("This id is incorrect");
+        } else {
+            System.out.println(Worker.FIELD_NAMES);
+            System.out.println(factory);
+        }
+    }
+
+    private void findAllFactories() {
+        System.out.println(Factory.FIELDS_NAMES);
+        for (Factory factory : FactoryBase.getValues()) {
+            System.out.println(factory);
+        }
+    }
+
+    private void upgradeFactory(BufferedReader reader) throws IOException {
+        System.out.println("Please enter id of factory");
+        Factory factory = FactoryBase.getFactory(reader.readLine().trim());
+        if (factory == null) {
+            System.out.println("This id doesn't exist");
+            return;
+        }
+        System.out.println(factory);
+        upgradeFactoryMenu();
+        switch (reader.readLine()) {
+            case "1" -> factory.setName(reader.readLine());
+            case "2" -> factory.setCountry(reader.readLine());
+        }
+    }
+
+    private void upgradeFactoryMenu() {
+        System.out.println("For upgrade the name, please enter 1");
+        System.out.println("For upgrade the country, please enter 2");
+    }
+
+    private void removeFactory(BufferedReader reader) throws IOException {
+        System.out.println("Please enter id of factory");
+        String id = reader.readLine();
+        FactoryBase.removeFactory(id);
     }
 
     private void exit() throws IOException {
@@ -63,6 +125,7 @@ public class WorkersInterface {
     }
 
     private void upgradeWorkerMenu() {
+        System.out.println();
         System.out.println("If you want to upgrade the name, please enter 1");
         System.out.println("If you want to upgrade the surname, please enter 2");
         System.out.println("If you want to upgrade the position, please enter 3");
@@ -76,7 +139,12 @@ public class WorkersInterface {
         System.out.println("For find all workers, please enter 3");
         System.out.println("For upgrade the worker, please enter 4");
         System.out.println("For delete worker, please enter 5");
-        System.out.println("For save + exit the system, please enter 6");
+        System.out.println("For create new factory, please enter 6");
+        System.out.println("For find the factory, please enter 7");
+        System.out.println("For find all factory, please enter 8");
+        System.out.println("For upgrade the factory, please enter 9");
+        System.out.println("For delete factory, please enter 10");
+        System.out.println("For save + exit the system, please enter 11");
         System.out.println();
     }
 

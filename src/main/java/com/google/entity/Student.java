@@ -8,6 +8,7 @@ public class Student extends BaseEntity {
     @Override
     public String toString() {
         return "Student{" +
+                "id='" + getId() + '\''+
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", majority='" + majority + '\'' +
